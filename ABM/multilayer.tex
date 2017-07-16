@@ -1,0 +1,74 @@
+\documentclass{standalone}
+\usepackage{pgf,tikz}
+\begin{document}
+\begin{tikzpicture}[thick,scale=0.9,
+every node/.style={scale=0.6,draw,circle,fill,inner sep=0pt}]
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Top layer: direct exposure network
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Space
+\draw[thick] (0,5) -- (5,5)  {}; % x1
+\draw[thick] (3,8) -- (8,8)  {}; % x2
+
+\draw[thick] (0,5) -- (3,8)  {}; % y1
+\draw[thick] (5,5) -- (8,8)  {}; % y2
+
+%Nodes
+
+\node[label={[label distance=0.3cm]180:1}] (n1t) at (1.75,5.75) {1};
+\node[label={[label distance=0.3cm]0:2}] (n2t) at (4.75,5.75) {2};
+\node[label={[label distance=0.3cm]30:3}] (n3t) at (3.25,7.25) {3};
+\node[label={[label distance=0.3cm]30:4}] (n4t) at (6.25,7.25) {4};
+\node[label={[label distance=0.3cm]30:5}] (n5t) at (4,6.5) {5};
+
+% Edges
+
+\draw[->,thick]  (n1t) -- (n2t);
+\draw[->,thick]  (n3t) -- (n5t);
+\draw[->,thick]  (n4t) -- (n2t);
+\draw[->,thick]  (n5t) -- (n1t);
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Bottom layer: Overlapping portfolio network
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\draw[thick] (0,0) -- (5,0) {}; % x1
+\draw[thick] (3,3) -- (8,3) {}; % x2
+
+\draw[thick] (0,0) -- (3,3) {}; % y1
+\draw[thick] (5,0) -- (8,3) {}; % y2
+
+% Nodes - banks
+\node[label={[label distance=0.3cm]180:1}] (n1b) at (1.75,0.75) {1};
+\node[label={[label distance=0.3cm]0:2}] (n2b) at (4.75,0.75) {2};
+\node[label={[label distance=0.3cm]30:3}] (n3b) at (3.25,2.25) {3};
+\node[label={[label distance=0.3cm]30:4}] (n4b) at (6.25,2.25) {4};
+\node[label={[label distance=0.3cm]60:5}] (n5b) at (4,1.5) {5};
+
+% Nodes - assets
+\node[fill = white,inner sep=3pt] (a1) at (3,1.25) {};
+\node[fill = white,inner sep=3pt] (a2) at (5,2) {};
+
+% Edges
+\draw[thick] (n1b) -- (a1);
+\draw[thick] (n5b) -- (a1);
+\draw[thick] (n3b) -- (a1);
+
+\draw[thick] (n5b) -- (a2);
+\draw[thick] (n2b) -- (a1);
+\draw[thick] (n2b) -- (a2);
+\draw[thick] (n4b) -- (a2);
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Vertical dashed lines
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\draw[dashed, gray] (n1t) -- (n1b);
+\draw[dashed, gray] (n2t) -- (n2b);
+\draw[dashed, gray] (n3t) -- (n3b);
+\draw[dashed, gray] (n4t) -- (n4b);
+\draw[dashed, gray] (n5t) -- (n5b);
+
+\end{tikzpicture}
+\end{document}
